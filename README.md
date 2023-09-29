@@ -1,2 +1,1 @@
-# portfolio
-A little about me and the projects i have in place 
+# This Repository contains some if the projects i've worked in

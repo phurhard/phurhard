@@ -1,0 +1,23 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.content{
+	padding: 10px;
+	min-width: 300px;
+}
+
+.btn_ctr {
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	color: white;
+	background: teal;
+	width: 100%;
+}
+
+.btn_ctr:hover {
+	box-shadow: 2px 0px 1px gray;
+}
