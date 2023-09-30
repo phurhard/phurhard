@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from pathlib import Path
 import os
+import uuid
 from datetime import datetime
 
 engine = create_engine('sqlite:///.videos.db')
@@ -25,7 +26,7 @@ else:
 class Video(Base):
     __tablename__ = 'videos'
     
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     filePath = Column(String)
     videoName = Column(String)
     
@@ -35,10 +36,55 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
+video_chunks = []
+uploadfolder = Path.home() / '.videos'
+
 @app.route('/')
 def status():
     '''Status of the app'''
     return jsonify({"message": "Up and running"})
+
+@app.route('/upload')
+def start_recording():
+    '''Receives blob from chrome extension'''
+    vidID = uuid.uuid4()
+    while request.data:
+        chunks = request.data
+        if len(chunks) < 0:
+            return "No data sent to server"
+        video_chunks.append(chunks)
+    return jsonify({'message': f'chunk of size {len(chunk)} received', "id": vidID})
+
+
+@app.route('done_recording')
+def stop_recording():
+    '''Processes the video already gotten'''
+    video_file = b''.join(video_chunks)
+    vidName = uploadfolder / datetime.now().isoformat() / 'mp4'
+    with open(vidName, 'wb') as videoFile:
+        videoFile.write(video_file)
+
+    #transcription will happen here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/upload', methods=["POST"])
 def vid_upload():

@@ -9,12 +9,12 @@
 	min-width: 300px;
 }
 
-.btn_ctr {
+.btn_ctr>button {
 	padding: 10px;
 	border: none;
 	border-radius: 10px;
 	color: white;
-	background: teal;
+	background: orange;
 	width: 100%;
 }
 
