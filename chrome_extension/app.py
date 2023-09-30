@@ -5,21 +5,25 @@ from sqlalchemy.ext.declarative import declarative_base
 from pathlib import Path
 import os
 import uuid
+from flask_cors import CORS
+from transcribe import run_transcription
 from datetime import datetime
 
 engine = create_engine('sqlite:///.videos.db')
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 Base = declarative_base()
 
-a = Path.home()
-if (a / '.videos').is_dir():
+a = Path.cwd()
+if (a / 'xtensiovideos').is_dir():
     print('passing')
     pass
 
 else:
-    directory = os.makedirs(a / '.videos')
+    # if the directory does not exist, create it
+    os.makedirs(a / 'xtensiovideos')
     print('created')
 
 
@@ -29,6 +33,7 @@ class Video(Base):
     id = Column(String, primary_key=True)
     filePath = Column(String)
     videoName = Column(String)
+    transcript = Column(String, default=None)
     
 Base.metadata.create_all(engine)
 
@@ -36,34 +41,54 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-
-video_chunks = []
-uploadfolder = Path.home() / '.videos'
+# create a file to save the chunks 
+# video_chunks = []
+uploadfolder = Path.cwd() / 'xtensiovideos'
 
 @app.route('/')
 def status():
     '''Status of the app'''
     return jsonify({"message": "Up and running"})
 
-@app.route('/upload')
+@app.route('/upload', methods=["POST"])
 def start_recording():
     '''Receives blob from chrome extension'''
-    vidID = uuid.uuid4()
-    while request.data:
-        chunks = request.data
-        if len(chunks) < 0:
-            return "No data sent to server"
-        video_chunks.append(chunks)
-    return jsonify({'message': f'chunk of size {len(chunk)} received', "id": vidID})
+    filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
+    filepath = uploadfolder / filename
+    with open(str(filename), 'ab') as videoFile:
+        while True:
+            chunks = request.stream.read()
+        if len(chunks) == 0:
+            return jsonify({"message": "No data sent to server"})
+        videoFile.write(chunks)
+    new_video = Video(id=str(uuid.uuid4()), videoName=filename, filePath=str(filepath))
+    session.add(new_video)
+    session.commit()
+    # vidID = uuid.uuid4()
+    # while request.data:
+    #     chunks = request.data
+    #     if len(chunks) < 0:
+    #         return "No data sent to server"
+    #     video_chunks.append(chunks)
+
+    # return jsonify({'message': f'chunk of size {len(chunks)} received', "vidFile": videoFile})
+    return jsonify({"Message": "Blob data received and saved", "vidID": new_video.id})
 
 
-@app.route('done_recording')
-def stop_recording():
+@app.route('/done_recording/<vidId>')
+def stop_recording(vidID):
     '''Processes the video already gotten'''
-    video_file = b''.join(video_chunks)
-    vidName = uploadfolder / datetime.now().isoformat() / 'mp4'
-    with open(vidName, 'wb') as videoFile:
-        videoFile.write(video_file)
+    video = session.query(Video).get(id=vidId)
+    videoFile = Path(video.filePath)
+    # use subprocess to convert the video file to audio
+    # subprocess(ffmpeg )
+    transcript = run_transcription(videoFile)
+    video.transcript = transcript
+    # video_file = b''.join(video_chunks)
+    # vidName = uploadfolder / datetime.now().isoformat() / 'mp4'
+    # with open(vidName, 'wb') as videoFile:
+    #     videoFile.write(video_file)
+
 
     #transcription will happen here
 

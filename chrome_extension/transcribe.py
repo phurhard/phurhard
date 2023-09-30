@@ -1,15 +1,16 @@
-'''This module transcribes the audio sent to it
-using google's speech to text'''
-from google-cloud import speech
+"""This module transcribes the audio sent to it
+using google's speech to text"""
+
+from "google-cloud" import speech
 
 
 
-def run_quickstart() -> speech.RecognizeResponse:
+def run_transcription(url) -> speech.RecognizeResponse:
     # Instantiates a client
     client = speech.SpeechClient()
 
     # The name of the audio file to transcribe
-    gcs_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
+    gcs_uri = url
 
     audio = speech.RecognitionAudio(uri=gcs_uri)
 
@@ -22,5 +23,4 @@ def run_quickstart() -> speech.RecognizeResponse:
     # Detects speech in the audio file
     response = client.recognize(config=config, audio=audio)
 
-    for result in response.results:
-        print(f"Transcript: {result.alternatives[0].transcript}")
+    return [result.alternatives[0].transcript for result in response.results]

@@ -5,8 +5,44 @@ function onAccessApproved(stream){
     recorder  = new MediaRecorder(stream);
 
     recorder.start();
+    recorder.ondataavailable = function(event){
+        console.log("Event.data has been sent to recordedBlob")
+
+
+        let recordedBlob = event.data;
+        console.log(recordedBlob)
+        fetch('http://127.0.0.1:5000/upload',{
+            method: 'POST',
+            body: recordedBlob
+        }).then(res => {
+            if (res.ok){
+                console.log(res)
+            } else{
+                console.error('error')
+            }
+        }).catch(error => {
+            console.error('Fetch error:', error)
+        })
+        // let url = URL.createObjectURL(recordedBlob);
+
+
+        // let a = document.createElement("a");
+
+        // a.style.display = "none";
+        // a.href = url;
+        // a.download = "screen-recording.webm"
+
+        // document.body.appendChild(a);
+        // a.click();
+
+        // document.body.removeChild(a);
+
+        // URL.revokeObjectURL(url);
+
+    }
 
     recorder.onstop = function(){
+        console.log("Recording has been stopped")
         stream.getTracks().forEach(function(track){
             if(track.readyState === "live"){
                 track.stop()
@@ -14,25 +50,7 @@ function onAccessApproved(stream){
         })
     }
 
-    recorder.ondataavailable = function(event){
-        let recordedBlob = event.data;
-        let url = URL.createObjectURL(recordedBlob);
-
-
-        let a = document.createElement("a");
-
-        a.style.display = "none";
-        a.href = url;
-        a.download = "screen-recording.webm"
-
-        document.body.appendChild(a);
-        a.click();
-
-        document.body.removeChild(a);
-
-        URL.revokeObjectURL(url);
-
-    }
+    
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
