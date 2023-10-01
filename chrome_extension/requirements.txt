@@ -1,0 +1,8 @@
+flask
+SQLAlchemy
+openai
+openai-whisper
+google-cloud-speech
+datetime
+uuid
+ffmpeg
