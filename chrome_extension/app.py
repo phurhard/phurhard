@@ -1,3 +1,7 @@
+
+
+
+
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
@@ -78,22 +82,22 @@ def request_recording():
     return jsonify({"Message": "This is the video details", "video": new_video.to_json()})
 
 
-@app.route('/upload', methods=["POST"])
-def start_recording():
+@app.route('/upload/<vidID>', methods=["POST"])
+def start_recording(vidID):
     '''This is the second part
         Receives chunks of blob data from client
         Writes this data to the file that was created in part one above
         The filepath is gotten by using the videoID sent in the part one above
         Once all data has been written, returns a success message
     '''
-    # video = session.query(Video).filter_by(id=vidID).first()
-    # filepath = video.filePath
-    vidID = str(uuid.uuid4())
-    filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
-    filepath = str(uploadfolder / filename)
-    new_video = Video(id=vidID, videoName=filename, filePath=filepath, transcript='')
-    session.add(new_video)
-    session.commit()
+    video = session.query(Video).filter_by(id=vidID).first()
+    filepath = video.filePath
+    # vidID = str(uuid.uuid4())
+    # filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
+    # filepath = str(uploadfolder / filename)
+    # new_video = Video(id=vidID, videoName=filename, filePath=filepath, transcript='')
+    # session.add(new_video)
+    # session.commit()
     '''
     creates the videi path and then saves data to the path
     '''
@@ -105,7 +109,7 @@ def start_recording():
              videoFile.write(chunks)
              # return jsonify({"message": "No data sent to server"}), 400
         # videoFile.write(chunks)
-    return jsonify({"Message": "Blob data received and saved", "video": new_video.to_json()}), 200
+    return jsonify({"Message": "Blob data received and saved", "video": video.to_json()}), 200
 
 
 @app.route('/done_recording/<vidID>')
@@ -134,6 +138,13 @@ def stop_recording(vidID):
 def all_videos():
     '''Returns the path of all videos'''
     videos = session.query(Video).all()
+    '''for vid in videos:
+        print(f'{Path(vid.filePath)}')
+        if len(vid.filePath) == 0:
+            print(f'checking {vid.filePath}')
+            session.delete(vid)
+    session.commit()
+    '''
     vid = [{'videos': video.to_json()} for video in videos]
     return jsonify(vid)
 

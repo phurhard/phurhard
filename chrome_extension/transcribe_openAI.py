@@ -12,8 +12,7 @@ def run_transcription(url):
     ffmpeg_command = ['ffmpeg', '-i', video, '-vn', '-acodec', 'libmp3lame', audio,]
     print("Starting subprocess")
     ffmpeg_process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    openai.api_key = "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"
-#os.getenv("OPENAI_API_KEY")
+    openai.api_key = "uuhuhuhh---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------tftgygg"
     ffmpeg_process.wait()
     print("Waiting for subprocess")
     return_code = ffmpeg_process.poll()
