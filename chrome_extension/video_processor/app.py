@@ -74,7 +74,7 @@ def request_recording():
     filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
     filepath = str(uploadfolder / filename)
     new_video = Video(id=vidID, videoName=filename, filePath=filepath, transcript='')
-    session.add(new_video)
+    Video.session.add(new_video)
     session.commit()
 
     return jsonify({"Message": "This is the video details", "video": new_video.to_json()})
