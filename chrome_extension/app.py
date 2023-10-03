@@ -92,14 +92,8 @@ def start_recording(vidID):
     '''
     video = session.query(Video).filter_by(id=vidID).first()
     filepath = video.filePath
-    # vidID = str(uuid.uuid4())
-    # filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
-    # filepath = str(uploadfolder / filename)
-    # new_video = Video(id=vidID, videoName=filename, filePath=filepath, transcript='')
-    # session.add(new_video)
-    # session.commit()
     '''
-    creates the videi path and then saves data to the path
+    creates the video path and then saves data to the path
     '''
     with open(str(filepath), 'ab') as videoFile:
          while True:
@@ -107,8 +101,6 @@ def start_recording(vidID):
              if len(chunks) == 0:
                  break
              videoFile.write(chunks)
-             # return jsonify({"message": "No data sent to server"}), 400
-        # videoFile.write(chunks)
     return jsonify({"Message": "Blob data received and saved", "video": video.to_json()}), 200
 
 
@@ -125,52 +117,31 @@ def stop_recording(vidID):
     videoFile = video.filePath
 
     # use subprocess to convert the video file to audio
-    transcript = subprocess(run_transcription(videoFile))
+    transcript = run_transcription(videoFile)
     
     # error handlers
     if len(transcript) == 0:
         return jsonify("Unable to transcribe video"), 500
     video.transcript = transcript
-    # return the full video
+    # return the full video details
     return jsonify({"Video": video.to_json()})
 
 @app.route('/all')
 def all_videos():
     '''Returns the path of all videos'''
     videos = session.query(Video).all()
-    '''for vid in videos:
+    for vid in videos:
         print(f'{Path(vid.filePath)}')
-        if len(vid.filePath) == 0:
-            print(f'checking {vid.filePath}')
+        try:
+            subprocess.run(vid.filePath)
+            
+        except Exception as e:
+            print(f'Exception raised: {e}')
             session.delete(vid)
-    session.commit()
-    '''
+            session.commit()
     vid = [{'videos': video.to_json()} for video in videos]
     return jsonify(vid)
 
-
-"""
-@app.route('/upload', methods=["POST"])
-def vid_upload():
-    # Saves uploaded video to disk n returns it's path
-    if 'image' not in request.files:#chamge it to video later
-        return jsonify({"error": "No video file available in request"}), 400
-
-    videos = request.files['image']
-    if videos.filename == '':
-        return jsonify({"error": "video file not found"}), 400
-
-    try:
-        videos.filename = f'Untitled_{datetime.now().isoformat()}'
-        path = Path.home() / '.videos'  / videos.filename# get the path the video is saved to
-        videos.save(path)
-        video = Video(filePath=str(path), videoName=videos.filename)
-        session.add(video)
-        session.commit()
-        return jsonify({"message": "successfull", "video Url": video.filePath})
-    except Exception as e:
-        return jsonify({"error": f"An error occured processing this video: {e}"})
-"""
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

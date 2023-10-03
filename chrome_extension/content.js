@@ -11,9 +11,9 @@ function onAccessApproved(stream){
 
         let recordedBlob = event.data;
         console.log(recordedBlob)
-        fetch('http://127.0.0.1:5000/upload',{
-            method: 'POST',
-            body: recordedBlob
+        fetch('http://127.0.0.1:5000/',{
+            // method: 'POST',
+            // body: recordedBlob
         }).then(res => {
             if (res.ok){
                 console.log(res)
@@ -55,7 +55,13 @@ function onAccessApproved(stream){
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.action === "request_recording"){
-        console.log("Requesting recording")
+        console.log("Requesting recording");
+        fetch("http://127.0.0.1:5000/start")
+            .then((res, body) => {
+                console.log(res);
+                console.log(body);
+                // video_id = res.video.id
+            })
 
         sendResponse(`processed: ${message.action}`);
 
@@ -66,6 +72,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
                 height: 999999999
             }
         }).then((stream)=>{
+            
             onAccessApproved(stream)
         })
 

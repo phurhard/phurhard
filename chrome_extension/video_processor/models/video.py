@@ -1,3 +1,8 @@
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Video(Base):
     __tablename__ = 'videos'
@@ -14,4 +19,7 @@ class Video(Base):
                 "Transcript": self.transcript
                 })
 
+engine = create_engine('sqlite:///videos.db')
 Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
