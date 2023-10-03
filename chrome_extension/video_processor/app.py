@@ -9,6 +9,7 @@ from flask_cors import CORS
 from transcribe_openAI import run_transcription
 from datetime import datetime
 import subprocess
+from models import storage
 from models.video import Video
 
 
@@ -74,8 +75,8 @@ def request_recording():
     filename = f'{datetime.now().strftime("%d_%m_%yT%H_%M_%S")}.mp4'
     filepath = str(uploadfolder / filename)
     new_video = Video(id=vidID, videoName=filename, filePath=filepath, transcript='')
-    Video.session.add(new_video)
-    session.commit()
+    storage.new(new_video)
+    storage.save()
 
     return jsonify({"Message": "This is the video details", "video": new_video.to_json()})
 
@@ -88,7 +89,7 @@ def start_recording(vidID):
         The filepath is gotten by using the videoID sent in the part one above
         Once all data has been written, returns a success message
     '''
-    video = session.query(Video).filter_by(id=vidID).first()
+    video = storage.get(vidID)
     filepath = video.filePath
     '''
     creates the video path and then saves data to the path
@@ -111,7 +112,7 @@ def stop_recording(vidID):
         to video.transcript
     '''
 
-    video = session.query(Video).filter_by(id=vidID).first()
+    video = storage.get(vidID)
     videoFile = video.filePath
 
     # use subprocess to convert the video file to audio
@@ -127,7 +128,7 @@ def stop_recording(vidID):
 @app.route('/all')
 def all_videos():
     '''Returns the path of all videos'''
-    videos = session.query(Video).all()
+    videos = storage.all()
     for vid in videos:
         print(f'{Path(vid.filePath)}')
         try:
@@ -135,8 +136,8 @@ def all_videos():
             
         except Exception as e:
             print(f'Exception raised: {e}')
-            session.delete(vid)
-            session.commit()
+            storage.delete(vid)
+            
     vid = [{'videos': video.to_json()} for video in videos]
     return jsonify(vid)
 

@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String
-
+from sqlalchemy.ext.declarative import declarative_base
+import models
 
 Base = declarative_base()
 
@@ -18,7 +19,10 @@ class Video(Base):
                 "Transcript": self.transcript
                 })
 
-engine = create_engine('sqlite:///videos.db')
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
+    def save(self):
+        """saves it's current state"""
+        models.storage.save()
+
+    def delete(self):
+        """Deletes self from db"""
+        models.storage.delete(self)
