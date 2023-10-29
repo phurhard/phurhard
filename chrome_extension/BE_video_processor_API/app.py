@@ -23,8 +23,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 a = Path.cwd()
 if (a / 'xtensiovideos').is_dir():
     print('passing')
-    pass
-
 else:
     # if the directory does not exist, create it
     os.makedirs(a / 'xtensiovideos')
@@ -33,7 +31,7 @@ else:
 
 # class Video(Base):
 #     __tablename__ = 'videos'
-    
+
 #     id = Column(String, primary_key=True)
 #     filePath = Column(String)
 #     videoName = Column(String)
@@ -45,7 +43,7 @@ else:
 #                 "videoName": self.videoName,
 #                 "Transcript": self.transcript
 #                 })
-    
+
 # Base.metadata.create_all(engine)
 
 # Create a session to interact with the database
