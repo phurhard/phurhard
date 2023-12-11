@@ -33,13 +33,9 @@ I'm currently improving my knowledge in
 
 [![GitHub Streak](https://streak-stats.demolab.com/?user=phurhard)](https://git.io/streak-stats)
 
-
-## Stats.
  <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=phurhard&layout=compact&theme=dark&hide_border=false" /></p>
-<p><img align="center" src="https://github-readme-stats.vercel.app/api?username=phurhard&show_icons=true&include_all_commits=true&count_private=true&layout=compact&theme=dark&hide_border=false&border_radius=2&hide=contribs" alt="phurhard github stats" /></p>
 
 ## 📫 Let's Connect
-LinkedIn
-X
-Whatsapp
-Gmail
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/Fuhad-Yusuf)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/+2348156336247)
+[![Twitter](https://img.shields.io/badge/twitter-333333?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/phurhard)
