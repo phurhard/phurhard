@@ -35,6 +35,10 @@ I'm currently improving my knowledge in
 ![](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/languages.svg)
 
 
+## Stats.
+ <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Re1gns&layout=compact&theme=dark&hide_border=false" /></p>
+<p><img align="center" src="https://github-readme-stats.vercel.app/api?username=Re1gns&show_icons=true&include_all_commits=true&count_private=true&layout=compact&theme=dark&hide_border=false&border_radius=2&hide=contribs" alt="Olatunde Victor Ayodeji's github stats" /></p>
+
 ## 📫 Let's Connect
 LinkedIn
 X
