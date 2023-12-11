@@ -4,6 +4,13 @@ https://img.shields.io/badge/Stack-Backend-blue
 <p>A passionate Python Backend Software Developer, with a knack for developing innovative solutions using cutting-edge technologies</p>
 My passion lies in dreaming up ideas and leveraging technology to develop solutions for such ideas in education, business and financial sectors.
 
+## Just a little to get you started 
+<!-- Markdown -->
+
+![Jokes Card](https://readme-jokes.vercel.app/api)
+
+
+
 ## 🌱 Goals
 
 My dream job is to be a developer capable of building world changing innovative solutions which solves problems and provides ease to way of life.
