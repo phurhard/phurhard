@@ -31,13 +31,13 @@ I'm currently improving my knowledge in
 ## Stats
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=phurhard&bg_color=30,e96443,904e95&title_color=fff&text_color=fff)
 
-![](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/overview.svg)
-![](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/languages.svg)
+![Github](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/overview.svg)
+![Github Stats.](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/languages.svg)
 
 
 ## Stats.
- <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Re1gns&layout=compact&theme=dark&hide_border=false" /></p>
-<p><img align="center" src="https://github-readme-stats.vercel.app/api?username=Re1gns&show_icons=true&include_all_commits=true&count_private=true&layout=compact&theme=dark&hide_border=false&border_radius=2&hide=contribs" alt="Olatunde Victor Ayodeji's github stats" /></p>
+ <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=phurhard&layout=compact&theme=dark&hide_border=false" /></p>
+<p><img align="center" src="https://github-readme-stats.vercel.app/api?username=phurhard&show_icons=true&include_all_commits=true&count_private=true&layout=compact&theme=dark&hide_border=false&border_radius=2&hide=contribs" alt="phurhard github stats" /></p>
 
 ## 📫 Let's Connect
 LinkedIn
