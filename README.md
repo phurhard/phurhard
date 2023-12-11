@@ -9,7 +9,10 @@ My passion lies in dreaming up ideas and leveraging technology to develop soluti
 
 ![Jokes Card](https://readme-jokes.vercel.app/api)
 
+[![Readme Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)](https://github.com/piyushsuthar/github-readme-quotes)
 
+## What i just tweeted about.
+[![github-readme-twitter](https://github-readme-twitter.gazf.vercel.app/api?id=phurhard)](https://github.com/gazf/github-readme-twitter)
 
 ## 🌱 Goals
 
