@@ -31,8 +31,7 @@ I'm currently improving my knowledge in
 ## Stats
 ![Github Stats](https://github-readme-stats.vercel.app/api?username=phurhard&bg_color=30,e96443,904e95&title_color=fff&text_color=fff)
 
-![Github](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/overview.svg)
-![Github Stats.](https://raw.githubusercontent.com/phurhard/github-stats-transparent/output/generated/languages.svg)
+[![GitHub Streak](https://streak-stats.demolab.com/?user=phurhard)](https://git.io/streak-stats)
 
 
 ## Stats.
