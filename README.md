@@ -3,7 +3,7 @@
 ![Reader](https://img.shields.io/badge/Hobbies-Reading-Red)
 
 <p>A passionate Python Backend Software Developer, with a knack for developing innovative solutions using cutting-edge technologies</p>
-My passion lies in dreaming up ideas and leveraging technology to develop solutions for such ideas in education, business and financial sectors.
+Leveraging technology to develop solutions for problems in education, business, and financial sectors.
 
 ## Just a little to get you started 
 <!-- Markdown -->
