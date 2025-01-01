@@ -2,8 +2,7 @@
 ![stack](https://img.shields.io/badge/Stack-Backend-blue)
 ![Reader](https://img.shields.io/badge/Hobbies-Reading-Red)
 
-You know when you surf the net and you are intrigued about how the sites are so flawless and the experience is exciting.
-That's what I do... I'm a python backend developer dedicated to providing acute and streamlined solutions in building software and web applications further to enhance the usability of users on the internet.
+I'm a python backend developer dedicated to providing acute and streamlined solutions in building software and web applications further to enhance the usability of users on the internet.
 
 Need to have your business out there to the wider audience of the global world, I'm your sure bet to building the best fit for you...
 
